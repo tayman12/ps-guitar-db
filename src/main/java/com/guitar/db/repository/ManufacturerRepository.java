@@ -1,15 +1,13 @@
 package com.guitar.db.repository;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
+import com.guitar.db.model.Manufacturer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.guitar.db.model.Manufacturer;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.Date;
+import java.util.List;
 
 @Repository
 public class ManufacturerRepository {
@@ -51,11 +49,7 @@ public class ManufacturerRepository {
 	 * Custom finder
 	 */
 	public List<Manufacturer> getManufacturersFoundedBeforeDate(Date date) {
-		@SuppressWarnings("unchecked")
-		List<Manufacturer> mans = entityManager
-				.createQuery("select m from Manufacturer m where m.foundedDate < :date")
-				.setParameter("date", date).getResultList();
-		return mans;
+		return manufatureJpaRepository.findByFoundedDateBefore(date);
 	}
 
 	/**
